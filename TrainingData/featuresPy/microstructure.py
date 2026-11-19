@@ -1,0 +1,6 @@
+adv20
+turnover20
+abnormal_volume_z
+amihud_illiquidity
+block_trade_proxy
+vwap_deviation

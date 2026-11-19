@@ -1,0 +1,14 @@
+cache/
+forecasts/
+videos/
+sec-edgar-filings/
+config.json
+.venv/
+.ipynb_checkpoints/
+__pycache__/
+*.pyc
+backup_*/
+output_plots/
+trade_summary_prob_strategy.csv
+amd_with_mosaic.csv
+TrainingData/indicators_data/
