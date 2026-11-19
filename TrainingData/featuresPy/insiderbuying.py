@@ -1,4 +1,5 @@
 import os
+import re
 import csv
 import time
 import xml.etree.ElementTree as ET
@@ -35,7 +36,30 @@ def extract_xml(filepath):
     end = content.rfind('</ownershipDocument>') + len('</ownershipDocument>')
     return content[start:end] if start != -1 and end != -1 else None
 
-def parse_f4(xml_str):
+DATE_BASIS = "filing_available"  # rows are dated when the Form 4 became public, not the trade date
+
+
+def availability_date_from_submission(filepath):
+    """Date the filing became public: SEC acceptance timestamp (Eastern time), moved to the next
+    business day if accepted at/after the 16:00 close. Falls back to FILED AS OF DATE."""
+    with open(filepath, 'r', encoding='utf-8', errors='ignore') as f:
+        header = f.read(4000)
+    m = re.search(r"<ACCEPTANCE-DATETIME>(\d{14})", header)
+    if m:
+        ts = pd.to_datetime(m.group(1), format="%Y%m%d%H%M%S")
+        day = ts.normalize()
+        if ts.hour >= 16:
+            day = day + pd.offsets.BDay(1)
+        return day.strftime("%Y-%m-%d")
+    m = re.search(r"FILED AS OF DATE:\s*(\d{8})", header)
+    if m:
+        return pd.to_datetime(m.group(1), format="%Y%m%d").strftime("%Y-%m-%d")
+    return None
+
+
+def parse_f4(xml_str, available_date=None):
+    """Extract open-market P/S transactions. If available_date is given, every transaction is
+    dated by it (point-in-time); otherwise by its transactionDate (look-ahead, legacy behaviour)."""
     try:
         root = ET.fromstring(xml_str)
     except Exception as e:
@@ -55,7 +79,7 @@ def parse_f4(xml_str):
                 continue
 
             buy_flag = 1 if code == 'P' else 0
-            date = txn.find('.//transactionDate/value', ns).text
+            date = available_date or txn.find('.//transactionDate/value', ns).text
             shares = float(txn.find('.//transactionShares/value', ns).text)
             price_el = txn.find('.//transactionPricePerShare/value', ns)
             price = float(price_el.text) if price_el is not None else 0.0
@@ -78,8 +102,8 @@ def aggregate_by_day(transactions):
 def save_csv(rows, outpath):
     with open(outpath, 'w', newline='') as f:
         w = csv.writer(f)
-        w.writerow(["date", "shares", "amount", "buy_flag"])
-        w.writerows(rows)
+        w.writerow(["date", "shares", "amount", "buy_flag", "date_basis"])
+        w.writerows([list(r) + [DATE_BASIS] for r in rows])
     print(f" CSV saved to: {outpath}")
 
 def update_insider_buying(ticker, output_dir, fetch_insider_func):
@@ -151,8 +175,12 @@ def main():
             print(f" Failed reading {file}: {e}")
             continue
 
+        out_csv_path = os.path.join(insider_out_dir, f"{ticker}_insider_trades_daily.csv")
+        legacy = False
+        if os.path.exists(out_csv_path):
+            legacy = "date_basis" not in pd.read_csv(out_csv_path, nrows=0).columns
         cached_date = cache_dict.get(ticker)
-        if cached_date == before:
+        if cached_date == before and not legacy:
             print(f" Skipping {ticker}, already up to date ({cached_date})")
             continue
 
@@ -175,18 +203,22 @@ def main():
             xml = extract_xml(fp)
             if not xml:
                 continue
-            all_tx.extend(parse_f4(xml))
+            available = availability_date_from_submission(fp)
+            if available is None:
+                print(f" Skipping {fp}: no acceptance/filing date in header")
+                continue
+            all_tx.extend(parse_f4(xml, available_date=available))
 
         if not all_tx:
             print(f" No insider transactions found for {ticker}")
             continue
 
         daily = aggregate_by_day(all_tx)
-        out_csv_path = os.path.join(insider_out_dir, f"{ticker}_insider_trades_daily.csv")
 
-        if os.path.exists(out_csv_path):
+        if os.path.exists(out_csv_path) and not legacy:
             old_df = pd.read_csv(out_csv_path)
-            new_df = pd.DataFrame(daily, columns=["date", "shares", "amount", "buy_flag"])
+            new_df = pd.DataFrame([list(r) + [DATE_BASIS] for r in daily],
+                                  columns=["date", "shares", "amount", "buy_flag", "date_basis"])
             combined = pd.concat([old_df, new_df]).drop_duplicates(subset=["date", "buy_flag"])
             combined.to_csv(out_csv_path, index=False)
         else:

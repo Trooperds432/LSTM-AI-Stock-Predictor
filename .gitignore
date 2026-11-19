@@ -16,3 +16,10 @@ TrainingData/indicators_data/
 /TrainingData/lseg_fixed_merger_reference_values.csv
 /TrainingData/lseg_merger_valuation_audit.csv
 /research/*_main_trades.csv
+
+# Walk-forward run artifacts (results are committed via research/ once evaluated)
+wf/
+wf_smoke/
+wf_run.log
+research/*_smoke.*
+.pytest_cache/

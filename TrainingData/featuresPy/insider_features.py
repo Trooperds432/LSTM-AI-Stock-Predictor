@@ -623,6 +623,11 @@ def parse_ownership_xml(
                         pct_ownership_delta = 100.0 * float(delta_shares) / float(pre_shares_est)
 
                 availability_date = filing_date.normalize()
+                # Accepted at/after the 16:00 ET close -> not tradable until the next business day.
+                # (EDGAR acceptanceDateTime is Eastern time even when suffixed "Z".)
+                if filing_acceptance_dt is not None and not pd.isna(filing_acceptance_dt) \
+                        and pd.Timestamp(filing_acceptance_dt).hour >= 16:
+                    availability_date = (availability_date + pd.offsets.BDay(1)).normalize()
                 citation = source_url
 
                 row: Dict[str, Any] = {

@@ -20,6 +20,28 @@ PROCESSED_DIR = os.path.join(_script_dir, "indicators_data", "processed")
 STOCK_LIST_PATH = os.path.join(_script_dir, "stockList.csv")
 os.makedirs(PROCESSED_DIR, exist_ok=True)
 
+# Point-in-time rules -------------------------------------------------------------------
+# A feature may only appear on a row once the information was public.
+# - Senate PTRs: the raw feed has only transaction_date. The STOCK Act deadline is 45 days
+#   after the transaction, so features are placed at transaction_date + 45 calendar days
+#   (conservative; late filers still leak a little; exact filing dates would need the PTR pages).
+# - Legacy insider CSVs (featuresPy/insiderbuying.py) written before 2026-11-19 are keyed by
+#   Form 4 transactionDate. Form 4 is due within 2 business days, so they are shifted +2 BDays.
+#   Newer CSVs carry date_basis="filing_available" (acceptance date, after-close -> next BDay).
+POLITICAL_DISCLOSURE_LAG_DAYS = 45
+INSIDER_LEGACY_LAG_BDAYS = 2
+
+
+def snap_to_trading_days(event_dates, trading_dates):
+    """Map each event date to the first trading date on or after it (NaT if after the last one)."""
+    td = pd.DatetimeIndex(pd.to_datetime(trading_dates)).normalize().sort_values().unique()
+    ev = pd.DatetimeIndex(pd.to_datetime(event_dates)).normalize()
+    pos = td.searchsorted(ev, side="left")
+    out = np.full(len(ev), np.datetime64("NaT", "ns"), dtype="datetime64[ns]")
+    ok = pos < len(td)
+    out[ok] = td.values[pos[ok]]
+    return pd.DatetimeIndex(out)
+
 # Optional feature module integration -------------------------------------------------
 try:
     from mosaic_score import compute_mosaic_scores
@@ -340,7 +362,7 @@ def process_file(csv_path, output_path, df_fear_greed=None):
     insider_dir = os.path.join(RAW_DIR, "insiderBuying")
     insider_path = os.path.join(insider_dir, f"{ticker}_insider_trades_daily.csv")
     if os.path.exists(insider_path):
-        df_insider = safe_read_insider(insider_path)
+        df_insider = safe_read_insider(insider_path, trading_dates=df["date"])
         df = df.merge(
             df_insider[["date", "insider_shares", "insider_amount", "insider_buy_flag"]],
             on="date", how="left"
@@ -396,9 +418,8 @@ def process_file(csv_path, output_path, df_fear_greed=None):
     df["sentiment_change"] = df["sentiment"] - df["sentiment"].shift(1)
 
     build_external_feature_blocks(ticker, csv_path)
-	df = merge_external_feature_blocks(df, ticker)
-	df = apply_optional_mosaic_scores(df)    
-# Merge optional feature blocks built by dedicated scripts.
+
+    # Merge optional feature blocks built by dedicated scripts.
     df = merge_external_feature_blocks(df, ticker)
 
     # Compute Mosaic scores after all feature blocks are present.
@@ -505,10 +526,13 @@ def _resolve_political_trades_csv_path(ticker):
     return os.path.join(POLITICAL_TRADES_OUT, f"{ordered[0]}_political_trades.csv")
 
 
-def build_political_daily_aggregates(ticker):
+def build_political_daily_aggregates(ticker, trading_dates=None):
     """
-    One row per calendar date with numeric features derived from transaction_type, amount,
+    One row per date with numeric features derived from transaction_type, amount,
     asset_type, and senator (distinct count per day).
+
+    Point-in-time: rows are dated transaction_date + POLITICAL_DISCLOSURE_LAG_DAYS (the STOCK Act
+    deadline), then snapped to the next trading date if trading_dates is given.
     """
     path = _resolve_political_trades_csv_path(ticker)
     if not os.path.isfile(path):
@@ -521,8 +545,14 @@ def build_political_daily_aggregates(ticker):
     if pol.empty:
         return None
     pol = pol.dropna(subset=["transaction_date"])
-    pol["date"] = pd.to_datetime(pol["transaction_date"], errors="coerce").dt.normalize()
+    pol["date"] = (pd.to_datetime(pol["transaction_date"], errors="coerce").dt.normalize()
+                   + pd.Timedelta(days=POLITICAL_DISCLOSURE_LAG_DAYS))
     pol = pol.dropna(subset=["date"])
+    if trading_dates is not None:
+        pol["date"] = snap_to_trading_days(pol["date"], trading_dates)
+        pol = pol.dropna(subset=["date"])
+    if pol.empty:
+        return None
 
     amt_meta = pol["amount"].map(_political_amount_ord_logmid)
     pol["_amt_ord"] = amt_meta.map(lambda x: x[0])
@@ -563,7 +593,7 @@ def build_political_daily_aggregates(ticker):
 
 
 def merge_political_daily_features(df, ticker):
-    pol_daily = build_political_daily_aggregates(ticker)
+    pol_daily = build_political_daily_aggregates(ticker, trading_dates=df["date"])
     if pol_daily is None or pol_daily.empty:
         for c in POLITICAL_MERGED_FEATURE_COLS:
             df[c] = 0
@@ -707,7 +737,7 @@ def load_fear_greed():
         return None
 
 
-def safe_read_insider(insider_path):
+def safe_read_insider(insider_path, trading_dates=None):
     try:
         df_insider = pd.read_csv(insider_path)
         # Convert to date only (ignore time, handle both 'YYYY-MM-DD' and 'YYYY-MM-DD-HH:MM' formats)
@@ -720,12 +750,26 @@ def safe_read_insider(insider_path):
             print(f"[WARNING] Bad date(s) found in {insider_path}:")
             print(bad_rows)
         df_insider = df_insider.dropna(subset=['date'])
+
+        # Point-in-time: legacy files are keyed by transaction date -> shift to the Form 4 deadline
+        basis = df_insider['date_basis'].iloc[0] if 'date_basis' in df_insider.columns and len(df_insider) else 'transaction'
+        if basis != 'filing_available':
+            df_insider['date'] = df_insider['date'] + pd.offsets.BDay(INSIDER_LEGACY_LAG_BDAYS)
+        if trading_dates is not None:
+            df_insider['date'] = snap_to_trading_days(df_insider['date'], trading_dates)
+            df_insider = df_insider.dropna(subset=['date'])
+
+        # Raw shares are positive for both buys and sales; sign them with buy_flag (1 = buy, 0 = sale)
+        sign = np.where(df_insider['buy_flag'].astype(int) == 1, 1.0, -1.0)
+        df_insider['shares'] = df_insider['shares'].astype(float).abs() * sign
+        df_insider['amount'] = df_insider['amount'].astype(float).abs() * sign
+
         # Group by date and compute net shares/amount
         grouped = df_insider.groupby('date').agg({
             'shares': 'sum',
             'amount': 'sum'
         }).reset_index()
-        # Compute net buy_flag for the day: 1 if net shares > 0, 0 if net shares < 0, -1 if net shares == 0
+        # Net buy_flag for the day: 1 if net shares > 0 (net buying), 0 if < 0 (net selling), -1 if flat
         grouped['insider_buy_flag'] = grouped['shares'].apply(lambda s: 1 if s > 0 else (0 if s < 0 else -1))
         # Rename columns for merge
         grouped = grouped.rename(columns={
