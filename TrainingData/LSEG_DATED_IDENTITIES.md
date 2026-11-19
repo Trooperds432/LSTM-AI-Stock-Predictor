@@ -16,6 +16,18 @@ The historical RIC assignments agree with the expired instruments in LSEG
 reference data and the corresponding leaver records. These mappings apply to
 the named historical rows. They do not stitch successor prices or returns.
 
+The reconstructed 2011 roster carries the Irish Tyco/Johnson Controls
+identifier backward. Vanguard's year-end 2010 holdings distinguish Johnson
+Controls Inc. from Tyco International Ltd. Tyco's SEC filing confirms it
+changed domicile from Switzerland to Ireland on 17 November 2014 and
+exchanged shares one for one. The opening roster therefore still needs an
+effective-dated Tyco share-class mapping before it can be checked by ISIN.
+The fund filing is an independent holdings check, with issuer names rather
+than permanent identifiers. Direct programmatic SEC retrieval returned 403.
+
+- [Vanguard year-end 2010 report](https://www.sec.gov/Archives/edgar/data/36405/000093247111001799/indexfunds_final.htm)
+- [Tyco closing filing](https://www.sec.gov/Archives/edgar/data/833444/000119312514414675/d823374d8k.htm)
+
 LSEG's 5 December 2014 leaver and 7 June 2019 joiner labelled AMCR.N both
 refer to Bemis. S&P's notices identify Bemis as the company removed after
 the close on 4 December 2014 and added before the open on 7 June 2019.

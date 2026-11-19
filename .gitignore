@@ -12,3 +12,7 @@ output_plots/
 trade_summary_prob_strategy.csv
 amd_with_mosaic.csv
 TrainingData/indicators_data/
+# Local price extracts and trade-level outputs
+/TrainingData/lseg_fixed_merger_reference_values.csv
+/TrainingData/lseg_merger_valuation_audit.csv
+/research/*_main_trades.csv

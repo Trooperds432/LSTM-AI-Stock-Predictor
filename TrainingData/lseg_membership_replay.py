@@ -20,6 +20,10 @@ def main():
         ('CB.N', 'CHUBB ORD'): 'CB.N^A16',
         ('JCI.N', 'JOHNSON CONTROLS ORD'): 'JCI.N^I16',
     }
+    # Tyco's NYSE ticker survived the Swiss-to-Irish exchange. The later JCI
+    # reference record represents a third security identity.
+    tyco_swiss, tyco_irish, jci_combined = 'CH0100383485', 'IE00BQRQXQ92', 'IE00BY7QL619'
+    baker_legacy, baker_class_a = 'US0572241075', 'US05722G1004'
     checkpoints = {}
     for path in sorted(snapshot.glob('members_*.csv')):
         rows = pd.read_csv(path).dropna(subset=['Constituent RIC'])
@@ -31,6 +35,10 @@ def main():
             rows = rows.loc[rows['Constituent RIC'].ne('HST.OQ')]
         members = [identities[historical_names.get((ric, name), ric)]
                    for ric, name in zip(rows['Constituent RIC'], rows['Constituent Name'])]
+        if '2014-11-17' <= path.stem[8:] < '2016-09-06':
+            members = [tyco_irish if isin == jci_combined else isin for isin in members]
+        if path.stem[8:] < '2017-07-05':
+            members = [baker_legacy if isin == baker_class_a else isin for isin in members]
         if len(set(members)) != len(members):
             raise ValueError(f'Unresolved identity collision in {path.name}')
         checkpoints[path.stem[8:]] = set(members)
@@ -41,12 +49,26 @@ def main():
                 & changes.Date.isin(['2014-12-05', '2019-06-07']), 'ISIN'] = bemis
     corrections = json.loads((snapshot / 'membership_isin_reconciliation.json').read_text())
     kenvue, linde = corrections['correction'], corrections['praxair_linde_correction']
+    micro_focus = 'US5948374039'
+    for date, expected in [('2017-08-31', False), ('2017-09-01', True),
+                           ('2017-09-05', True), ('2017-09-06', False)]:
+        probe = pd.read_csv(snapshot / 'boundary_probes' / f'{date}.csv')
+        if len(probe) < 490 or bool(probe['Constituent RIC'].eq('MFGP.N^A23').any()) != expected:
+            raise ValueError(f'Micro Focus membership evidence failed for {date}')
     extra = pd.DataFrame([
         (kenvue['effective'], kenvue['isin'], 'Leaver'),
         (linde['effective'], linde['remove_isin'], 'Leaver'),
         (linde['effective'], linde['add_isin'], 'Joiner'),
         ('2019-06-11', bemis, 'Leaver'),
         ('2019-06-11', amcor, 'Joiner'),
+        ('2017-09-01', micro_focus, 'Joiner'),
+        ('2017-09-06', micro_focus, 'Leaver'),
+        ('2014-11-17', tyco_swiss, 'Leaver'),
+        ('2014-11-17', tyco_irish, 'Joiner'),
+        ('2016-09-06', tyco_irish, 'Leaver'),
+        ('2016-09-06', jci_combined, 'Joiner'),
+        ('2017-07-05', baker_legacy, 'Leaver'),
+        ('2017-07-05', baker_class_a, 'Joiner'),
     ], columns=['Date', 'ISIN', 'Change'])
     changes = pd.concat([changes[['Date', 'ISIN', 'Change']], extra])
     assert changes.ISIN.notna().all()
@@ -84,6 +106,7 @@ def main():
     audit = dict(opening_count=opening_count, opening_independently_verified=False,
                  rows=len(rows), checkpoints=residuals, forward_conflicts=conflicts,
                  reverse_conflicts=reverse_conflicts,
+                 micro_focus_membership_sessions=['2017-09-01', '2017-09-05'],
                  bemis_transition_note='June 11 uses issuer-confirmed first trade; LSEG snapshot still says BMS.')
     (snapshot / 'membership_dated_audit.json').write_text(json.dumps(audit, indent=2))
     print(json.dumps(audit))

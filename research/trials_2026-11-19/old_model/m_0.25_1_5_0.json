@@ -1,0 +1,41 @@
+{
+  "settings": {
+    "min_accepted": 0.25,
+    "std_factor": 1.0,
+    "max_positions": 5,
+    "cost_bps_per_side": 0.0,
+    "min_price": 5.0,
+    "exclude_non_common": true,
+    "tickers_used": 111
+  },
+  "n_trading_days": 516,
+  "n_dates": 517,
+  "random_runs": 50,
+  "strategy": {
+    "completed_trades": 67,
+    "open_at_end": 0,
+    "win_rate_after_costs": 0.6567164179104478,
+    "total_costs": 0.0,
+    "sharpe": -0.014351725384493898,
+    "max_drawdown": -0.39434350492883263,
+    "cagr": -0.038507141832660574,
+    "final_value": 4613.70728605672
+  },
+  "spy": {
+    "total_return": 0.04470787867361126,
+    "max_drawdown": -0.2536057440706705,
+    "sharpe": 0.20712093335566642
+  },
+  "random_mean": {
+    "max_drawdown": -0.6935085701116985,
+    "cagr": -0.19330873959011646
+  },
+  "random_daily_decision_days": 516,
+  "total_return_over_oos": {
+    "strategy_fraction": -0.07725854278865607,
+    "random_mean_fraction": -0.238411539141697,
+    "random_std_fraction": 0.6792634096389777,
+    "z_score_vs_random": 0.23724669114547517,
+    "empirical_percentile_vs_random": 76.0
+  }
+}

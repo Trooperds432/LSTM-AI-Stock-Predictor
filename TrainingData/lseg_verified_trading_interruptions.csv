@@ -1,0 +1,8 @@
+isin,ric,first_flagged_session,last_flagged_session,event,source
+US33616C1009,FRC.N^E23,2023-05-01,2023-05-03,NYSE suspension; OTC trading began May 3,https://infomemo.theocc.com/infomemos?number=52358
+US82669G1040,SBNY.OQ^C23,2023-03-13,2023-03-14,Nasdaq trading halt,https://www.nasdaq.com/press-release/nasdaq-halts-signature-bank-2023-03-13
+US78486Q1013,SIVB.OQ^C23,2023-03-10,2023-03-14,Nasdaq trading halt; March 10 volume is not a regular-session OHLC bar,https://www.sec.gov/Archives/edgar/data/719739/000119312523073665/d485308d8k.htm
+US44967H1014,IILGV.OQ^E16,2016-05-13,2016-05-13,When-issued line discontinued; regular-way ILG security mapping requires separate validation,https://www.sec.gov/Archives/edgar/data/316206/000110465916120268/a16-11125_1ex99d1.htm
+US75886F1075,REGN.OQ,2015-06-09,2015-06-09,Nasdaq trading halt confirmed by issuer,https://newsroom.regeneron.com/news-releases/news-release-details/trading-regeneron-common-stock-halted-0
+US09062X1037,BIIB.OQ,2020-11-06,2020-11-06,Nasdaq trading halt confirmed by OCC,https://infomemo.theocc.com/infomemos?number=47809
+US09062X1037,BIIB.OQ,2023-06-09,2023-06-09,Nasdaq trading halt confirmed by issuer,https://investors.biogen.com/news-releases/news-release-details/biogen-stock-trading-halted-today-fda-advisory-committee-review

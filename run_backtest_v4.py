@@ -103,7 +103,7 @@ for filename in os.listdir(forecast_dir):
     df = df.set_index("Date").sort_index()
     df["Ticker"] = ticker
 
-    # Spike filter (I need to build something better for stock splits in the future lol)
+    # Spike filter: now only affects the random baseline; the strategy uses the causal filter in backtest_core
     if "Close" in df.columns:
         df["pct_change"] = df["Close"].pct_change()
         max_change       = df["pct_change"].abs().max()
@@ -191,155 +191,40 @@ def cagr_simple(V0, V1, n_trading_days):
     else:
         return (V1 / V0) ** (1.0 / years) - 1.0
 
-# Backtesting strategy:
-# Rules:
-#   For each date, compute adj_prob = Pred_Prob - STD_FACTOR * Pred_Prob_Std
-#   Reject candidates with adj_prob <= MIN_ACCEPTED or entry price < MIN_PRICE
-#   Keep the best horizon per ticker, skip tickers already held
-#   Fill free slots (up to MAX_POSITIONS) with the highest adj_prob candidates
-#   Each new position gets 1/MAX_POSITIONS of current equity (or whatever cash is left)
-#   COST_BPS is charged on every buy and every sell
-#   Positions are sold at the close on their horizon's exit day
+# Backtesting strategy: delegated to the tested engine in backtest_core.py
+# (next-bar fills and causal spike filter by default; see research/audit_2026-11-19_preregistration.md).
+# BT_SAME_CLOSE_FILL=1 and BT_SPIKE_MODE=full reproduce the old, biased behaviour for attribution only.
+import backtest_core as bc
 
-cost_rate = COST_BPS / 10000.0
-n_common  = len(common_dates)
+strategy_params = bc.StrategyParams(
+    min_accepted=MIN_ACCEPTED,
+    std_factor=STD_FACTOR,
+    max_positions=MAX_POSITIONS,
+    cost_bps=COST_BPS,
+    min_price=MIN_PRICE,
+    spike_threshold=SPIKE_THRESHOLD,
+    spike_mode=os.environ.get("BT_SPIKE_MODE", "causal"),
+    next_bar_fill=os.environ.get("BT_SAME_CLOSE_FILL") != "1",
+    initial_value=initial_value,
+)
+core_forecasts, _ = bc.load_forecasts(forecast_dir, exclude_non_common=EXCLUDE_NON_COMMON)
+core_panel = bc.build_panel(core_forecasts, start=OOS_START_DATE)
+common_dates = core_panel.dates  # strategy and plots share the engine's calendar
+core_result = bc.run_strategy(core_panel, strategy_params)
 
-cash             = initial_value
-positions        = []
-strategy_history = []
-trade_log        = []
-buy_points       = []
+strategy_history      = list(core_result.equity)
+summary_df            = core_result.trades
+trade_log             = summary_df.to_dict("records")
+buy_points            = core_result.buy_points
+total_costs           = core_result.total_costs
+open_positions_at_end = core_result.open_at_end
+successful_buys       = int((summary_df["PnL$"] > 0).sum()) if len(summary_df) else 0
+total_buys            = len(buy_points)
 
-successful_buys = 0
-total_buys      = 0
-total_costs     = 0.0
-
-
-def _close_on(ticker, date):
-    df = all_forecasts[ticker]
-    if date not in df.index:
-        return None
-    v = float(df.at[date, "Close"])
-    return v if np.isfinite(v) and v > 0 else None
-
-
-def _equity():
-    return cash + sum(p["shares"] * p["last_px"] for p in positions)
-
-
-for i, date in enumerate(common_dates):
-    # 1) Mark open positions to market (keep last known price if no bar today)
-    for p in positions:
-        c = _close_on(p["Ticker"], date)
-        if c is not None:
-            p["last_px"] = c
-
-    # 2) Exit positions whose horizon has ended
-    still_open = []
-    for p in positions:
-        if i < p["exit_idx"]:
-            still_open.append(p)
-            continue
-        gross = p["shares"] * p["last_px"]
-        cost  = gross * cost_rate
-        cash += gross - cost
-        total_costs += cost
-        net_ret   = (gross - cost) / p["cost_basis"] - 1.0
-        gross_ret = p["last_px"] / p["entry_px"] - 1.0
-        trade_log.append({
-            "BuyDate"        : p["BuyDate"],
-            "SellDate"       : date,
-            "Ticker"         : p["Ticker"],
-            "Horizon"        : p["Period"],
-            "DaysHeld"       : i - p["entry_idx"],
-            "Pred_Prob"      : p["Pred_Prob"],
-            "Pred_Prob_Std"  : p["Pred_Prob_Std"],
-            "Adj_Prob"       : p["Adj_Prob"],
-            "EntryPrice"     : p["entry_px"],
-            "ExitPrice"      : p["last_px"],
-            "Gross_Return%"  : gross_ret * 100,
-            "Actual_Return%" : net_ret * 100,   # after costs
-            "Actual_LogR"    : np.log1p(net_ret),
-        })
-        if net_ret > 0:
-            successful_buys += 1
-    positions = still_open
-
-    # 3) Fill free slots (no new entries on the last day: nothing could be held)
-    free_slots = MAX_POSITIONS - len(positions)
-    if free_slots > 0 and i < n_common - 1:
-        held = {p["Ticker"] for p in positions}
-        best_per_ticker = {}
-
-        for ticker, df in all_forecasts.items():
-            if ticker in held or date not in df.index:
-                continue
-            row = df.loc[date]
-            entry_px = row.get("Close", np.nan)
-            if not np.isfinite(entry_px) or entry_px < MIN_PRICE:
-                continue
-
-            for label, days in PERIODS.items():
-                prob_col = f"Pred_Prob_{label}"
-                std_col  = f"Pred_Prob_Std_{label}"
-                if prob_col not in row or pd.isna(row[prob_col]):
-                    continue
-
-                pred_prob = float(row[prob_col])
-                pred_std  = row.get(std_col, 0.0)
-                pred_std  = max(float(pred_std) if pd.notna(pred_std) else 0.0, 1e-6)
-                adj_prob  = pred_prob - STD_FACTOR * pred_std
-                if adj_prob <= MIN_ACCEPTED:
-                    continue
-
-                cand = {
-                    "Ticker"        : ticker,
-                    "Period"        : label,
-                    "Days"          : days,
-                    "Pred_Prob"     : pred_prob,
-                    "Pred_Prob_Std" : pred_std,
-                    "Adj_Prob"      : adj_prob,
-                    "entry_px"      : float(entry_px),
-                }
-                if ticker not in best_per_ticker or adj_prob > best_per_ticker[ticker]["Adj_Prob"]:
-                    best_per_ticker[ticker] = cand
-
-        picks = sorted(best_per_ticker.values(), key=lambda c: c["Adj_Prob"], reverse=True)[:free_slots]
-        slot_size = _equity() / MAX_POSITIONS
-
-        for c in picks:
-            alloc = min(slot_size, cash)
-            if alloc < 1.0:
-                break
-            cost = alloc * cost_rate
-            cash -= alloc
-            total_costs += cost
-            c.update({
-                "shares"     : (alloc - cost) / c["entry_px"],
-                "last_px"    : c["entry_px"],
-                "cost_basis" : alloc,
-                "entry_idx"  : i,
-                "exit_idx"   : min(i + c["Days"], n_common - 1),
-                "BuyDate"    : date,
-            })
-            positions.append(c)
-            total_buys += 1
-            buy_points.append({
-                "Date"      : date,
-                "Value"     : _equity(),
-                "Ticker"    : c["Ticker"],
-                "Horizon"   : c["Period"],
-                "Pred_Prob" : c["Pred_Prob"],
-                "Adj_Prob"  : c["Adj_Prob"],
-            })
-
-    strategy_history.append(_equity())
-
-open_positions_at_end = len(positions)
-
+print(f"\nStrategy engine: next_bar_fill={strategy_params.next_bar_fill}, spike_mode={strategy_params.spike_mode}, "
+      f"universe={len(core_panel.tickers)} tickers")
 
 # save trade summary
-summary_df = pd.DataFrame(trade_log)
 summary_df.to_csv("trade_summary_prob_strategy.csv", index=False)
 
 print("\nSaved trade summary to trade_summary_prob_strategy.csv")
@@ -486,7 +371,10 @@ else:
                 "cost_bps_per_side": COST_BPS,
                 "min_price": MIN_PRICE,
                 "exclude_non_common": EXCLUDE_NON_COMMON,
-                "tickers_used": len(all_forecasts),
+                "tickers_used": len(core_panel.tickers),
+                "random_baseline_tickers": len(all_forecasts),
+                "next_bar_fill": strategy_params.next_bar_fill,
+                "spike_mode": strategy_params.spike_mode,
             },
             "n_trading_days": n_trading_days,
             "n_dates": n_dates,
