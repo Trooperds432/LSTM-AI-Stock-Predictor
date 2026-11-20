@@ -1,0 +1,3 @@
+date,replay_isin,probe_isin,reason,source
+2015-06-30,US50076Q1067,US5007541064,LSEG lists the Kraft Heinz when-issued line (KHC.N) for Kraft Foods Group before the merger closed; the member security was still Kraft Foods Group,indicators_data/lseg/20261119T132813190380Z/dated_boundary_verification.json
+2019-06-11,JE00BV7DQ550,US0814371052,LSEG snapshot still names Bemis on 2019-06-11; replay uses the issuer-confirmed first Amcor trading date,https://press.spglobal.com/2019-06-03-Bemis-Set-to-Join-S-P-500-Mattel-to-Join-S-P-MidCap-400

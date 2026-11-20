@@ -1,0 +1,96 @@
+target_isin,successor_ric,reason,source
+BMG475671050,SPGI.N,candidates_file: S&P Global,mapping review 2026-11-20; validated by S2 price check
+CH0100383485,JCI.N,Tyco Irish shares / JCI plc continue on JCI.N,mapping review 2026-11-20; validated by S2 price check
+IE00B40K9117,ETN.N,name_match: Eaton Corp,mapping review 2026-11-20; validated by S2 price check
+IE00B68SQD29,MDT.N,name_match: Medtronic plc,mapping review 2026-11-20; validated by S2 price check
+IE00BQRQXQ92,JCI.N,Tyco Irish shares / JCI plc continue on JCI.N,mapping review 2026-11-20; validated by S2 price check
+IE00BY9D5467,ABBV.N,candidates_file: AbbVie,mapping review 2026-11-20; validated by S2 price check
+US00817Y1082,CVS.N,candidates_file: CVS Health,mapping review 2026-11-20; validated by S2 price check
+US0153511094,AZN.N,AstraZeneca ADS (history on AZN.N),mapping review 2026-11-20; validated by S2 price check
+US0173611064,FE.N,name_match: FirstEnergy Corp,mapping review 2026-11-20; validated by S2 price check
+US0184901025,AGN.N^E20,candidates_file: Actavis,mapping review 2026-11-20; validated by S2 price check
+US0325111070,OXY.N,name_match: Occidental Petroleum Corp,mapping review 2026-11-20; validated by S2 price check
+US03349M1053,MPC.N,name_match: Marathon Petroleum Corp,mapping review 2026-11-20; validated by S2 price check
+US03662Q1058,SNPS.OQ,candidates_file: Synopsys,mapping review 2026-11-20; validated by S2 price check
+US0534841012,VMRK.N,candidates_file: Vivmark formerly Equity Residential,mapping review 2026-11-20; validated by S2 price check
+US0572241075,BKR.OQ,BHGE Class A carried on BKR.OQ from 2017-07-05,mapping review 2026-11-20; validated by S2 price check
+US0673831097,BDX.N,candidates_file: Becton Dickinson,mapping review 2026-11-20; validated by S2 price check
+US07177M1036,SHPG.OQ^A19,Shire plc ADS,mapping review 2026-11-20; validated by S2 price check
+US0814371052,AMCR.N,Amcor,mapping review 2026-11-20; validated by S2 price check
+US1113201073,AVGO.OQ,Broadcom Ltd (Avago) history on AVGO.OQ,mapping review 2026-11-20; validated by S2 price check
+US1270971039,DVN.N,name_match: Devon Energy Corp,mapping review 2026-11-20; validated by S2 price check
+US13342B1052,SLB.N,Schlumberger,mapping review 2026-11-20; validated by S2 price check
+US14170T1016,BDX.N,candidates_file: Becton Dickinson,mapping review 2026-11-20; validated by S2 price check
+US1510201049,BMY.N,name_match: Bristol-Myers Squibb Co,mapping review 2026-11-20; validated by S2 price check
+US1712321017,CB.N,candidates_file: ACE Limited,mapping review 2026-11-20; validated by S2 price check
+US20030N2009,CMCSA.OQ,Comcast Class A,mapping review 2026-11-20; validated by S2 price check
+US20605P1012,COP.N,candidates_file: ConocoPhillips,mapping review 2026-11-20; validated by S2 price check
+US2103711006,EXC.OQ,name_match: Exelon Corp,mapping review 2026-11-20; validated by S2 price check
+US2228621049,AET.N^K18,candidates_file: Aetna,mapping review 2026-11-20; validated by S2 price check
+US2547091080,COF.N,Capital One,mapping review 2026-11-20; validated by S2 price check
+US25470F3029,WBD.OQ^J26,Warner Bros. Discovery,mapping review 2026-11-20; validated by S2 price check
+US25490A3095,T.N,candidates_file: AT&T,mapping review 2026-11-20; validated by S2 price check
+US2605431038,DD.N,DowDuPont history on DD.N,mapping review 2026-11-20; validated by S2 price check
+US2635341090,DD.N,DowDuPont history on DD.N,mapping review 2026-11-20; validated by S2 price check
+US2644115055,PLD.N,Prologis,mapping review 2026-11-20; validated by S2 price check
+US2686481027,DVMT.N^L18,Dell Class V tracking stock,mapping review 2026-11-20; validated by S2 price check
+US2692464017,MS.N,candidates_file: Morgan Stanley,mapping review 2026-11-20; validated by S2 price check
+US28336L1098,KMI.N,name_match: Kinder Morgan Inc Class P,mapping review 2026-11-20; validated by S2 price check
+US30219G1085,CI.N,candidates_file: New Cigna,mapping review 2026-11-20; validated by S2 price check
+US3024451011,TDY.N,name_match: Teledyne Technologies Inc,mapping review 2026-11-20; validated by S2 price check
+US30249U1016,FTI.N,name_match: TechnipFMC plc,mapping review 2026-11-20; validated by S2 price check
+US3070001090,DLTR.OQ,name_match: Dollar Tree Inc,mapping review 2026-11-20; validated by S2 price check
+US3458381064,AGN.N^E20,"Actavis plc, later Allergan plc",mapping review 2026-11-20; validated by S2 price check
+US36174X1019,BPY.OQ^D21,Brookfield Property Partners units,mapping review 2026-11-20; validated by S2 price check
+US42809H1077,CVX.N,candidates_file: Chevron,mapping review 2026-11-20; validated by S2 price check
+US44967H1014,ILG.OQ^H18,ILG Inc regular-way,mapping review 2026-11-20; validated by S2 price check
+US45822P1057,WEC.N,candidates_file: Wisconsin Energy,mapping review 2026-11-20; validated by S2 price check
+US4606901001,OMC.N,name_match: Omnicom Group Inc,mapping review 2026-11-20; validated by S2 price check
+US4783661071,JCI.N,Johnson Controls International plc (Tyco renamed),mapping review 2026-11-20; validated by S2 price check
+US4851703029,CP.N,Canadian Pacific Railway,mapping review 2026-11-20; validated by S2 price check
+US49177J1025,KMB.OQ,candidates_file: Kimberly-Clark,mapping review 2026-11-20; validated by S2 price check
+US50076Q1067,KHC.N,Kraft Heinz,mapping review 2026-11-20; validated by S2 price check
+US5024131071,LHX.N,name_match: L3Harris Technologies Inc,mapping review 2026-11-20; validated by S2 price check
+US5356781063,ADI.OQ,name_match: Analog Devices Inc,mapping review 2026-11-20; validated by S2 price check
+US5441471019,RAI.N^G17,Reynolds American,mapping review 2026-11-20; validated by S2 price check
+US5658491064,COP.N,candidates_file: ConocoPhillips,mapping review 2026-11-20; validated by S2 price check
+US5718371033,BMO.N,Bank of Montreal,mapping review 2026-11-20; validated by S2 price check
+US5762061068,ANR.N^G15,Alpha Natural Resources,mapping review 2026-11-20; validated by S2 price check
+US57772K1016,ADI.OQ,candidates_file: Analog Devices,mapping review 2026-11-20; validated by S2 price check
+US5833341077,WRK.N^G24,WestRock,mapping review 2026-11-20; validated by S2 price check
+US58405U1025,ESRX.OQ^L18,Express Scripts Holding,mapping review 2026-11-20; validated by S2 price check
+US6294911010,ICE.N,Intercontinental Exchange,mapping review 2026-11-20; validated by S2 price check
+US6512901082,OVV.N,candidates_file: Encana,mapping review 2026-11-20; validated by S2 price check
+US6540861076,GAS.N^G16,AGL Resources,mapping review 2026-11-20; validated by S2 price check
+US6550441058,CVX.N,candidates_file: Chevron,mapping review 2026-11-20; validated by S2 price check
+US6700081010,LRCX.OQ,name_match: Lam Research Corp,mapping review 2026-11-20; validated by S2 price check
+US7127041058,MTB.N,name_match: M&T Bank Corp,mapping review 2026-11-20; validated by S2 price check
+US7237871071,XOM.N,candidates_file: Exxon Mobil,mapping review 2026-11-20; validated by S2 price check
+US7292511083,WY.N,name_match: Weyerhaeuser Co,mapping review 2026-11-20; validated by S2 price check
+US74005P1049,LIN.OQ,Linde plc,mapping review 2026-11-20; validated by S2 price check
+US7432631056,DUK.N,name_match: Duke Energy Corp,mapping review 2026-11-20; validated by S2 price check
+US7434101025,PLD.N,AMB renamed Prologis,mapping review 2026-11-20; validated by S2 price check
+US7491211097,LUMN.OQ,"CenturyLink, now Lumen",mapping review 2026-11-20; validated by S2 price check
+US7551115071,RTX.N,candidates_file: United Technologies,mapping review 2026-11-20; validated by S2 price check
+US7617131062,BTI.N,candidates_file: British American Tobacco ordinary shares represented by ADSs,mapping review 2026-11-20; validated by S2 price check
+US7743411016,RTX.N,candidates_file: United Technologies,mapping review 2026-11-20; validated by S2 price check
+US7908491035,ABT.N,name_match: Abbott Laboratories,mapping review 2026-11-20; validated by S2 price check
+US80004C1018,WDC.OQ,candidates_file: Western Digital,mapping review 2026-11-20; validated by S2 price check
+US80589M1027,D.N,name_match: Dominion Energy Inc,mapping review 2026-11-20; validated by S2 price check
+US8110651010,DISCK.OQ^D22,Discovery Series C,mapping review 2026-11-20; validated by S2 price check
+US8475601097,ENB.N,Enbridge,mapping review 2026-11-20; validated by S2 price check
+US8520611000,S.N^D20,Sprint Corporation (new),mapping review 2026-11-20; validated by S2 price check
+US85590A4013,MAR.OQ,name_match: Marriott International Inc,mapping review 2026-11-20; validated by S2 price check
+US86764P1093,,NO RELIABLE SUCCESSOR HISTORY: ETP.N^J18 carries a different entity's history,mapping review 2026-11-20; validated by S2 price check
+US8679141031,TFC.N,"BB&T, now Truist",mapping review 2026-11-20; validated by S2 price check
+US8873173038,T.N,candidates_file: AT&T,mapping review 2026-11-20; validated by S2 price check
+US88732J2078,CHTR.OQ,name_match: Charter Communications Inc (New Charter),mapping review 2026-11-20; validated by S2 price check
+US8919061098,GPN.N,candidates_file: Global Payments,mapping review 2026-11-20; validated by S2 price check
+US90130A3095,DIS.N,Disney,mapping review 2026-11-20; validated by S2 price check
+US90130A4085,DIS.N,Disney,mapping review 2026-11-20; validated by S2 price check
+US92553P2011,,NO RELIABLE SUCCESSOR HISTORY: PARA.OQ carries a different entity's history,mapping review 2026-11-20; validated by S2 price check
+US9314271084,,cash take-private: LSEG-parsed ratio is wrong; handled as cash in S2,mapping review 2026-11-20; validated by S2 price check
+US94946T1060,CNC.N,candidates_file: Centene,mapping review 2026-11-20; validated by S2 price check
+US96145D1054,SW.N,name_match: Smurfit Westrock plc,mapping review 2026-11-20; validated by S2 price check
+US9839191015,AMD.OQ,candidates_file: AMD,mapping review 2026-11-20; validated by S2 price check
+US4436831071,MTB.N,Hudson City -> M&T Bank (elective terms),TrainingData/lseg_elective_terms.csv

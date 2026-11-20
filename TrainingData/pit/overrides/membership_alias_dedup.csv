@@ -1,0 +1,2 @@
+keep_ric,drop_ric,before_date,reason,source
+HST.N,HST.OQ,2020-11-02,Snapshots before the Nasdaq transfer list both HST aliases of one ISIN,https://www.nasdaqtrader.com/TraderNews.aspx?id=dtn2020-36

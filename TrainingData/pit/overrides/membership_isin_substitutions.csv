@@ -1,0 +1,3 @@
+from_isin,to_isin,valid_from,valid_to,applies_to,reason,source
+IE00BY7QL619,IE00BQRQXQ92,2014-11-17,2016-09-06,checkpoints,JCI.N reference record is the post-2016 combined JCI; between redomicile and merger the member was Tyco (Ireland),https://www.sec.gov/Archives/edgar/data/833444/000119312514414675/d823374d8k.htm
+US05722G1004,US0572241075,0000-01-01,2017-07-05,checkpoints,Before the BHGE transaction the member was legacy Baker Hughes Inc,https://www.sec.gov/Archives/edgar/data/1701605/000119312517220954/d421375d8k.htm

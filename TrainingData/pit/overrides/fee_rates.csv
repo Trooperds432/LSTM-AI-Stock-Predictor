@@ -1,0 +1,31 @@
+effective_date,fee,rate,max_per_trade,source_url,note
+2009-12-17,sec31,25.70,,https://www.sec.gov/news/press/2009/2009-270.htm,"$ per million of covered sales; rate in force before 2010-01-15 (row date = advisory date, a placeholder start, not the original effective date)"
+2010-01-15,sec31,12.70,,https://www.sec.gov/news/press/2009/2009-270.htm,FY2010 fee rate advisory #4
+2010-04-01,sec31,16.90,,https://www.sec.gov/news/press/2010/2010-29.htm,FY2010 mid-year adjustment (advisory #5)
+2011-01-21,sec31,19.20,,https://www.sec.gov/news/press/2010/2010-255.htm,FY2011 advisory #5 (rate announced 2010-04-30 took effect only after appropriation)
+2012-02-21,sec31,18.00,,https://www.sec.gov/news/press/2012/2012-15.htm,FY2012 advisory #5 (the $15.10 rate announced 2011-05-02 never became effective)
+2012-04-01,sec31,22.40,,https://www.sec.gov/news/press/2012/2012-35.htm,FY2012 mid-year adjustment (advisory #6)
+2013-05-25,sec31,17.40,,https://www.sec.gov/news/press/2013/2013-74.htm,FY2013 advisory #3
+2014-03-18,sec31,22.10,,https://www.sec.gov/News/PressRelease/Detail/PressRelease/1370540783933,FY2014 advisory #3
+2015-02-14,sec31,18.40,,https://www.sec.gov/news/pressrelease/2015-8.html,FY2015 advisory #3
+2016-02-16,sec31,21.80,,https://www.sec.gov/news/pressrelease/2016-2.html,FY2016 advisory #3
+2017-07-04,sec31,23.10,,https://www.sec.gov/news/press-release/2017-111,FY2017 advisory #3
+2018-05-22,sec31,13.00,,https://www.sec.gov/news/press-release/2018-67,FY2018 advisory #3
+2019-04-16,sec31,20.70,,https://www.sec.gov/news/press-release/2019-30,FY2019 advisory #2
+2020-02-18,sec31,22.10,,https://www.sec.gov/news/press-release/2020-7,FY2020 advisory #2
+2021-02-25,sec31,5.10,,https://www.sec.gov/news/press-release/2021-8,FY2021 advisory #2
+2022-05-14,sec31,22.90,,https://www.sec.gov/news/press-release/2022-60,FY2022 advisory #2
+2023-02-27,sec31,8.00,,https://www.sec.gov/newsroom/press-releases/2023-15,FY2023 advisory #2
+2024-05-22,sec31,27.80,,https://www.sec.gov/rules-regulations/fee-rate-advisories/2024-2,FY2024 advisory #2
+2025-05-14,sec31,0.00,,https://www.sec.gov/rules-regulations/fee-rate-advisories/2025-2,FY2025; $0.00 until 60 days after FY2026 appropriation
+2026-04-04,sec31,20.60,,https://www.sec.gov/rules-regulations/fee-rate-advisories/2026-2,FY2026; in force until 60 days after FY2027 appropriation (no later advisory as of 2026-11-20)
+2004-11-01,finra_taf,0.000075,3.75,https://www.finra.org/rules-guidance/notices/04-84,"$ per share sold, cap per trade; Notice 11-27 confirms $0.000075 was in place for over six years before 2011-07-01"
+2011-07-01,finra_taf,0.000090,4.50,https://www.finra.org/rules-guidance/notices/11-27,SEC-approved (Rel. 34-64590)
+2012-03-01,finra_taf,0.000095,4.75,https://www.finra.org/rules-guidance/notices/12-06,SEC-approved (Rel. 34-66276); SR-FINRA-2012-008 moved the date from Feb 1 to Mar 1
+2012-07-01,finra_taf,0.000119,5.95,https://www.finra.org/rules-guidance/notices/12-31,SEC-approved (Rel. 34-67242); SR-FINRA-2020-032 states the rate had not increased since 2012
+2022-01-01,finra_taf,0.000130,6.49,https://www.finra.org/sites/default/files/2020-10/SR-FINRA-2020-032.pdf,"SR-FINRA-2020-032 (immediately effective), phase 1 of 3 beginning 2022"
+2023-01-01,finra_taf,0.000145,7.27,https://www.finra.org/sites/default/files/2020-10/SR-FINRA-2020-032.pdf,SR-FINRA-2020-032 phase 2
+2024-01-01,finra_taf,0.000166,8.30,https://www.finra.org/sites/default/files/2020-10/SR-FINRA-2020-032.pdf,SR-FINRA-2020-032 phase 3 (full implementation 2024); SR-FINRA-2024-019 table: 2025 no change
+2026-01-01,finra_taf,0.000195,9.79,https://www.finra.org/sites/default/files/2024-11/sr-finra-2024-019.pdf,SR-FINRA-2024-019 (immediately effective) implementation table column 2026
+2026-10-01,finra_taf,0.000000,0.00,https://www.finra.org/sites/default/files/2026-09/SR-FINRA-2026-021.pdf,SR-FINRA-2026-021 (immediately effective): TAF paused for transactions 2026-10-01 to 2026-12-31
+2027-01-01,finra_taf,,,https://www.finra.org/sites/default/files/2026-09/SR-FINRA-2026-021.pdf,"UNKNOWN: SR-FINRA-2024-019 schedules $0.000232/$11.61 for 2027 but SR-FINRA-2026-021 says the previous rate ($0.000195/$9.79) resumes; the engine raises for sales on or after this date until resolved"

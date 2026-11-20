@@ -1,0 +1,139 @@
+{
+  "consolidated_source": "Alpha Vantage TIME_SERIES_DAILY (local raw/stocksData)",
+  "pairs": {
+    "US05722G1004": {
+      "primary_ric": "BKR.OQ",
+      "alias_ric": "BKR.N",
+      "transfer_session": "2021-12-07",
+      "series": {
+        "primary:BKR.OQ:pre_transfer": {
+          "sessions": 1115,
+          "first": "2017-07-05",
+          "last": "2021-12-06",
+          "close_match_1bp": 0.9982,
+          "venue_to_consolidated_volume_median": 0.2544,
+          "volume_within_10pct": 0.0
+        },
+        "primary:BKR.OQ:post_transfer": {
+          "sessions": 999,
+          "first": "2021-12-07",
+          "last": "2025-11-28",
+          "close_match_1bp": 1.0,
+          "venue_to_consolidated_volume_median": 0.3788,
+          "volume_within_10pct": 0.0
+        },
+        "alias:BKR.N:post_transfer": {
+          "sessions": 999,
+          "first": "2021-12-07",
+          "last": "2025-11-28",
+          "close_match_1bp": 0.2282,
+          "venue_to_consolidated_volume_median": 0.0284,
+          "volume_within_10pct": 0.0
+        }
+      },
+      "P2a_close_pass": true,
+      "P2_volume_pass": false
+    },
+    "US1344291091": {
+      "primary_ric": "CPB.OQ",
+      "alias_ric": "CPB.N",
+      "transfer_session": "2024-08-19",
+      "series": {
+        "primary:CPB.OQ:pre_transfer": {
+          "sessions": 3428,
+          "first": "2011-01-03",
+          "last": "2024-08-16",
+          "close_match_1bp": 0.9982,
+          "venue_to_consolidated_volume_median": 0.2946,
+          "volume_within_10pct": 0.0015
+        },
+        "primary:CPB.OQ:post_transfer": {
+          "sessions": 324,
+          "first": "2024-08-19",
+          "last": "2025-12-02",
+          "close_match_1bp": 1.0,
+          "venue_to_consolidated_volume_median": 0.3426,
+          "volume_within_10pct": 0.0
+        },
+        "alias:CPB.N:post_transfer": {
+          "sessions": 324,
+          "first": "2024-08-19",
+          "last": "2025-12-02",
+          "close_match_1bp": 0.2407,
+          "venue_to_consolidated_volume_median": 0.0195,
+          "volume_within_10pct": 0.0
+        }
+      },
+      "P2a_close_pass": true,
+      "P2_volume_pass": false
+    },
+    "US44107P1049": {
+      "primary_ric": "HST.OQ",
+      "alias_ric": "HST.N",
+      "transfer_session": "2020-11-02",
+      "series": {
+        "primary:HST.OQ:pre_transfer": {
+          "sessions": 2475,
+          "first": "2011-01-03",
+          "last": "2020-10-30",
+          "close_match_1bp": 0.9992,
+          "venue_to_consolidated_volume_median": 0.2393,
+          "volume_within_10pct": 0.0032
+        },
+        "primary:HST.OQ:post_transfer": {
+          "sessions": 1275,
+          "first": "2020-11-02",
+          "last": "2025-11-28",
+          "close_match_1bp": 1.0,
+          "venue_to_consolidated_volume_median": 0.3535,
+          "volume_within_10pct": 0.0
+        },
+        "alias:HST.N:post_transfer": {
+          "sessions": 1275,
+          "first": "2020-11-02",
+          "last": "2025-11-28",
+          "close_match_1bp": 0.2831,
+          "venue_to_consolidated_volume_median": 0.0296,
+          "volume_within_10pct": 0.0
+        }
+      },
+      "P2a_close_pass": true,
+      "P2_volume_pass": false
+    },
+    "US4943681035": {
+      "primary_ric": "KMB.OQ",
+      "alias_ric": "KMB.N",
+      "transfer_session": "2025-05-30",
+      "series": {
+        "primary:KMB.OQ:pre_transfer": {
+          "sessions": 3623,
+          "first": "2011-01-03",
+          "last": "2025-05-29",
+          "close_match_1bp": 0.9997,
+          "venue_to_consolidated_volume_median": 0.2827,
+          "volume_within_10pct": 0.0017
+        },
+        "primary:KMB.OQ:post_transfer": {
+          "sessions": 127,
+          "first": "2025-05-30",
+          "last": "2025-11-28",
+          "close_match_1bp": 1.0,
+          "venue_to_consolidated_volume_median": 0.3692,
+          "volume_within_10pct": 0.0
+        },
+        "alias:KMB.N:post_transfer": {
+          "sessions": 127,
+          "first": "2025-05-30",
+          "last": "2025-11-28",
+          "close_match_1bp": 0.3228,
+          "venue_to_consolidated_volume_median": 0.0115,
+          "volume_within_10pct": 0.0
+        }
+      },
+      "P2a_close_pass": true,
+      "P2_volume_pass": false
+    }
+  },
+  "P2a_pass": true,
+  "P2_pass": false
+}

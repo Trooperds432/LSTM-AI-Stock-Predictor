@@ -1,0 +1,5 @@
+date,ric,expected_member,min_rows,reason,source
+2017-08-31,MFGP.N^A23,False,490,Micro Focus not yet a member,boundary_probes/2017-08-31.csv
+2017-09-01,MFGP.N^A23,True,490,Micro Focus temporary member,boundary_probes/2017-09-01.csv
+2017-09-05,MFGP.N^A23,True,490,Micro Focus temporary member,boundary_probes/2017-09-05.csv
+2017-09-06,MFGP.N^A23,False,490,Micro Focus removed,boundary_probes/2017-09-06.csv

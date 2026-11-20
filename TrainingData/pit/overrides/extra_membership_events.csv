@@ -1,0 +1,14 @@
+date,isin,change,reason,source
+2026-11-04,US49177J1025,Leaver,Kenvue deletion missing from LSEG change feed,https://press.spglobal.com/2026-10-30-Okta-Set-to-Join-S-P-500-Others-to-Join-S-P-MidCap-400-and-S-P-SmallCap-600
+2018-10-31,US74005P1049,Leaver,Praxair replaced by Linde plc (missing from change feed),https://www.sec.gov/Archives/edgar/data/1749889/000110465918065385/a18-39342_1497.htm
+2018-10-31,IE000S9YS762,Joiner,Praxair replaced by Linde plc (missing from change feed),https://www.sec.gov/Archives/edgar/data/1749889/000110465918065385/a18-39342_1497.htm
+2019-06-11,US0814371052,Leaver,Bemis/Amcor: issuer-confirmed first Amcor trading date,https://press.spglobal.com/2019-06-03-Bemis-Set-to-Join-S-P-500-Mattel-to-Join-S-P-MidCap-400
+2019-06-11,ric:AMCR.N,Joiner,Bemis/Amcor: issuer-confirmed first Amcor trading date (ISIN resolved from current AMCR.N reference),https://press.spglobal.com/2019-06-03-Bemis-Set-to-Join-S-P-500-Mattel-to-Join-S-P-MidCap-400
+2017-09-01,US5948374039,Joiner,Micro Focus temporary membership omitted by event feed,boundary_probes/2017-08-31..2017-09-06
+2017-09-06,US5948374039,Leaver,Micro Focus temporary membership omitted by event feed,boundary_probes/2017-08-31..2017-09-06
+2014-11-17,CH0100383485,Leaver,Tyco redomicile Switzerland to Ireland (one-for-one exchange),https://www.sec.gov/Archives/edgar/data/833444/000119312514414675/d823374d8k.htm
+2014-11-17,IE00BQRQXQ92,Joiner,Tyco redomicile Switzerland to Ireland (one-for-one exchange),https://www.sec.gov/Archives/edgar/data/833444/000119312514414675/d823374d8k.htm
+2016-09-06,IE00BQRQXQ92,Leaver,Tyco/Johnson Controls merger creates JCI plc,https://www.sec.gov/Archives/edgar/data/833444/000110465916143068/a16-17941_18k.htm
+2016-09-06,IE00BY7QL619,Joiner,Tyco/Johnson Controls merger creates JCI plc,https://www.sec.gov/Archives/edgar/data/833444/000110465916143068/a16-17941_18k.htm
+2017-07-05,US0572241075,Leaver,Baker Hughes Inc replaced by Baker Hughes a GE company (Class A),https://www.sec.gov/Archives/edgar/data/1701605/000119312517220954/d421375d8k.htm
+2017-07-05,US05722G1004,Joiner,Baker Hughes Inc replaced by Baker Hughes a GE company (Class A),https://www.sec.gov/Archives/edgar/data/1701605/000119312517220954/d421375d8k.htm

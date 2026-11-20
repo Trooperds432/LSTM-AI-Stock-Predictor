@@ -1,0 +1,15 @@
+ric,category,fallback,explanation,source
+CBE.N^L12,anomalous_last_print,settlement_value,"Final close 74.50 printed on 10x volume after trading ~79.2 all day; implied 79.56 is within 0.3% of prior close 79.35",indicators_data/pit/prices_pit.parquet (CBE.N^L12 2012-11-26..30)
+HES.N^G25,successor_overnight_move,settlement_value,"Next-open value +6.7% but same-day arbitrage value +4.2% (within 5%); CVX gapped overnight",indicators_data/pit/settlement_pit.csv
+MHS.N^D12,successor_overnight_move,settlement_value,"Next-open value +6.0% but same-day arbitrage value +3.4% (within 5%); ESRX gapped on first combined session",indicators_data/pit/settlement_pit.csv
+GENZ.OQ^D11,contingent_right_not_valued,cash_only,"74.00 cash excludes the tradeable CVR (worth ~2.25 implied); -2.95% vs last close",https://www.sec.gov/Archives/edgar/data/732485/000119312511092590/d425.htm
+WBA.OQ^H25,contingent_right_not_valued,cash_only,"11.45 cash excludes the DAP right (up to 3.00); -4.4% vs last close",lseg_deal synopsis (Sycamore take-private)
+FRC.N^E23,failure_equity_wiped_out,zero,"FDIC seizure; equity worthless; OTC prices not in dataset",https://www.moomoo.com/community/feed/110309989023750
+SIVB.OQ^C23,failure_equity_wiped_out,zero,"Bank failure and holding-company bankruptcy; OTC prices not in dataset",https://investorplace.com/2023/03/delisted-bank-stocks-signature-and-svb-financial-start-trading-otc/
+SBNY.OQ^C23,failure_equity_wiped_out,zero,"Bank failure and FDIC receivership; OTC prices not in dataset",https://investorplace.com/2023/03/delisted-bank-stocks-signature-and-svb-financial-start-trading-otc/
+ALXN.OQ^G21,no_successor_price,last_close,"AstraZeneca ADS history before 2025 not available under AZN.N/AZN.O/AZN.OQ in LSEG",indicators_data/lseg/reference_extra (manifest errors)
+EMC.N^I16,no_successor_price,last_close,"Dell Class V tracking stock (DVMT) not available in LSEG",indicators_data/lseg/reference_extra (manifest errors)
+GGP.N^H18,no_successor_price,last_close,"Brookfield Property Partners units not available in LSEG under tried RICs",indicators_data/lseg/reference_extra (manifest errors)
+IILGV.OQ^E16,no_successor_price,last_close,"ILG Inc regular-way history not available in LSEG under tried RICs",indicators_data/lseg/reference_extra (manifest errors)
+SUN.N^J12,no_successor_price,last_close,"ETP.N^J18 carries Sunoco Logistics history, not the 2012 Energy Transfer Partners units",indicators_data/pit/settlement_pit.csv
+VIAB.OQ^L19,no_successor_price,last_close,"PARA.OQ history does not match ViacomCBS Class B in Dec 2019 (implied value -74%)",indicators_data/pit/settlement_pit.csv

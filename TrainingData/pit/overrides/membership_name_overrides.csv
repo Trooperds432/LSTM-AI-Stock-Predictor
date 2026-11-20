@@ -1,0 +1,6 @@
+constituent_ric,constituent_name,instrument,reason,source
+DD.N,DOW CHEMICAL ORD,DOW.N^I17,2015 roster row returned under successor RIC; historical expired instrument,https://www.sec.gov/Archives/edgar/data/1666700/000119312517274834/d426905dex991.htm
+DD.N,EI D P DE NEMOUR ORD,DD.N^I17,2015 roster row returned under successor RIC; historical expired instrument,https://www.sec.gov/Archives/edgar/data/1666700/000119312517274834/d426905dex991.htm
+FTI.N,FMC TECHNOLOGIES ORD,FTI.N^A17,2015 roster row returned under successor RIC; historical expired instrument,https://www.sec.gov/files/litigation/admin/2019/34-87055.pdf
+CB.N,CHUBB ORD,CB.N^A16,2015 roster row returned under successor RIC; historical expired instrument,TrainingData/LSEG_DATED_IDENTITIES.md
+JCI.N,JOHNSON CONTROLS ORD,JCI.N^I16,2015 roster row returned under successor RIC; historical expired instrument,TrainingData/LSEG_DATED_IDENTITIES.md

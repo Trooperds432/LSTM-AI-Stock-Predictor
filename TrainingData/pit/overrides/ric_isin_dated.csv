@@ -1,0 +1,6 @@
+ric,isin,valid_from,valid_to,reason,source
+JCI.N,CH0100383485,2011-01-03,2014-11-17,LSEG carries Tyco (Swiss) history under the current JCI.N RIC,https://www.sec.gov/Archives/edgar/data/833444/000119312514414675/d823374d8k.htm
+JCI.N,IE00BQRQXQ92,2014-11-17,2016-09-06,LSEG carries Tyco (Irish) history under the current JCI.N RIC,https://www.sec.gov/Archives/edgar/data/833444/000119312514414675/d823374d8k.htm
+JCI.N,IE00BY7QL619,2016-09-06,2099-12-31,Combined Johnson Controls International plc after the Tyco/JCI merger,https://www.sec.gov/Archives/edgar/data/833444/000110465916143068/a16-17941_18k.htm
+BKR.OQ,US0572241075,2011-01-03,2017-07-05,LSEG carries legacy Baker Hughes Inc (BHI) history under the current BKR.OQ RIC; close 57.68 on 2017-07-03 then 37.25 on first BHGE session,https://www.sec.gov/Archives/edgar/data/1701605/000119312517220954/d421375d8k.htm
+BKR.OQ,US05722G1004,2017-07-05,2099-12-31,Baker Hughes a GE company / Baker Hughes Co Class A,https://www.sec.gov/Archives/edgar/data/1701605/000119312517220954/d421375d8k.htm
