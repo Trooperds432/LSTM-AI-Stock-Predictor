@@ -1,0 +1,9 @@
+ric,session,category,explanation,source
+ADT.N^E16,2016-02-16,takeover_announcement,Apollo agreed to acquire ADT (announced 2016-02-16),price/volume evidence; deal later completed (see settlement_pit)
+ABMD.OQ^L22,2022-11-01,takeover_announcement,Johnson & Johnson agreed to acquire Abiomed (announced 2022-11-01),https://www.sec.gov/Archives/edgar/data/200406/000119312522274491/d395813d8k.htm
+FRC.N^E23,2023-03-13,bank_crisis,First Republic fell after the SVB and Signature failures,https://investorplace.com/2023/03/delisted-bank-stocks-signature-and-svb-financial-start-trading-otc/
+FRC.N^E23,2023-03-14,bank_crisis,First Republic rebounded the next session,https://investorplace.com/2023/03/delisted-bank-stocks-signature-and-svb-financial-start-trading-otc/
+GMCR.OQ^C16,2015-12-07,takeover_announcement,JAB-led group agreed to acquire Keurig Green Mountain (announced 2015-12-07),price/volume evidence; deal later completed (see settlement_pit)
+MRNA.OQ,2026-08-19,news,Phase 3 INTerpath-001 melanoma vaccine interim results; stock +177% that day,https://abcnews.com/Health/wireStory/moderna-shares-surge-after-experimental-mrna-cancer-treatment-135776280
+MMI.N^E12,2011-08-15,takeover_announcement,Google agreed to acquire Motorola Mobility (announced 2011-08-15),price/volume evidence; deal later completed (see settlement_pit)
+NSM.N^I11,2011-04-05,takeover_announcement,Texas Instruments agreed to acquire National Semiconductor (announced 2011-04-04),price/volume evidence; deal later completed (see settlement_pit)

@@ -1,0 +1,15 @@
+Window ['2016-01-04', '2023-12-29'], universe 216, SPY CAGR +11.5% Sharpe 0.69
+PRIMARY  CAGR +13.1%  Sharpe 0.72  MDD -28.9%  trades 142
+SECONDARY CAGR +27.8%  Sharpe 1.35  thresholds {2016: 0.3, 2017: 0.3, 2018: 0.2, 2019: 0.25, 2020: 0.25, 2021: 0.2, 2022: 0.25, 2023: 0.2}
+EW univ  CAGR +6.2%  | reversal Sharpe 0.06
+  TEST 1_cagr_vs_spy        PASS
+  TEST 2_shuffle_control    PASS
+  TEST 3_bootstrap          PASS
+  TEST 4_deflated_sharpe    FAIL
+  TEST 5_remove_top3        FAIL
+  TEST 6_year_by_year       FAIL
+  TEST 7_seed_stability     PASS
+  TEST 8_vs_reversal        PASS
+  TEST 9_vs_ew_universe     PASS
+  TEST 10_cost40            FAIL
+VERDICT: edge NOT SUPPORTED on current evidence | warnings: ['5_remove_top3', '6_year_by_year', '10_cost40']
