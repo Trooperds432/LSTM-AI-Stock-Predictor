@@ -41,3 +41,13 @@ Written before any `pit/` artifact is built. Thresholds are fixed. Any change af
   - **P2 as written therefore FAILS** for all series. It is kept as a failure, not loosened.
   - **New test P2a**, added after seeing data and labelled post hoc: the chosen primary series' close equals the consolidated close (within 1 bp) on ≥ 95% of sessions.
   - **Consequence:** LSEG volume cannot be used as consolidated volume for ADV, capacity or liquidity features until a consolidated-volume source or a validated scaling exists. This blocks K1's ADV inputs and the liquidity features of Phase 7.
+- **2026-11-20 — P2 re-test on consolidated volume.** LSEG carries consolidated volume and closing bid/ask on the consolidated RIC: `XYZ.O` for Nasdaq names, the bare `XYZ` for NYSE names. AAPL.O and JPM matched Alpha Vantage exactly.
+  - Downloaded for all 860 primary RICs (`pit/lseg_consolidated.py`, 86 of 86 batches).
+  - **The preregistered P2 criterion, applied to the consolidated series, PASSES:** 451 of 463 comparable securities (97.4%) are within ±10% on ≥ 95% of sessions, and the median ratio is 1.000.
+  - **Residual failures:** GOOGL fails only in 2011–2013, because Alpha Vantage's GOOGL history before the 2014 share-class split is not comparable. CBOE fails because its bare RIC resolves to a single venue.
+  - **Coverage:** consolidated volume covers 92.6% of member-sessions. The rest are mostly expired RICs whose consolidated name does not follow the pattern, and they need a documented fallback, for example venue volume × the security's own consolidated/venue ratio.
+  - The earlier P2 FAIL on venue volume stands as recorded. This is a re-test on a new data series, logged here, not a loosening.
+- **2026-11-20 — K2 (reported, not pass/fail).** Real closing quoted spreads (21-day median) have a median of **2.3 bps**, with p10–p90 of 1–17 bps.
+  - The Corwin–Schultz/Abdi–Ranaldo estimate has a median of **27 bps**: median error +21 bps, median absolute error 26 bps, and a rank correlation across securities of only 0.30.
+  - **Consequence:** the OHLC estimators are not usable cost inputs for S&P 500 stocks. The cost model must use quoted spreads, which cover 92.5% of member-sessions, with a documented fallback.
+  - K1 (estimate coverage) passes as written, but its estimate is not fit for purpose. That is recorded here so K1's pass is not misread.
